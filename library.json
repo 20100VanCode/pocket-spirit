@@ -1,0 +1,34 @@
+{
+  "name": "PocketSpirit",
+  "version": "0.1.0",
+  "description": "Lightweight ESP32 library for creating digital companions on Waveshare round displays",
+  "keywords": "esp32, waveshare, lvgl, virtual-pet, tamagotchi, gc9a01",
+  "authors": [
+    {
+      "name": "VanCode",
+      "url": "https://github.com/20100VanCode"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/20100VanCode/pocket-spirit"
+  },
+  "frameworks": ["arduino", "espidf"],
+  "platforms": ["espressif32"],
+  "dependencies": {
+    "lvgl/lvgl": "^8.3.0",
+    "bodmer/TFT_eSPI": "^2.5.0"
+  },
+  "build": {
+    "srcDir": "src",
+    "srcFilter": [
+      "+<*>"
+    ]
+  },
+  "examples": [
+    "examples/creature_lumy",
+    "examples/creature_dragon",
+    "examples/creature_ghost"
+  ]
+}
