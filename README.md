@@ -92,10 +92,12 @@ pocket-spirit/
 │   ├── README.md                   # Contribution guide
 │   └── _template/MyCreature.h      # Starter template
 ├── docs/
+│   ├── TUTORIAL_PART1.md           # 📚 Beginner's tutorial: Setup & First flash
+│   ├── TUTORIAL_PART2.md           # 📚 Beginner's tutorial: Custom creatures
+│   ├── GETTING_STARTED.md          # Quick setup guide
+│   ├── CREATING_CREATURES.md       # Creature creation guide
 │   ├── ARCHITECTURE.md             # System design
-│   ├── API.md                      # Full API reference
-│   ├── GETTING_STARTED.md          # Setup guide
-│   └── CREATING_CREATURES.md       # Creature creation guide
+│   └── API.md                      # Full API reference
 ├── tools/
 │   └── sprite_converter.py         # PNG → RGB565 C array
 ├── lv_conf.h                       # Minimal LVGL config
@@ -145,10 +147,15 @@ See [Creating Creatures Guide](docs/CREATING_CREATURES.md) for full details.
 
 ## 📖 Documentation
 
-- [Getting Started](docs/GETTING_STARTED.md) — Setup, wiring, first flash
+### 🎓 Beginner Tutorials (No experience needed!)
+- [Tutorial Part 1](docs/TUTORIAL_PART1.md) — Complete setup, wiring, first flash
+- [Tutorial Part 2](docs/TUTORIAL_PART2.md) — How it works, custom creatures, sharing
+
+### 📚 Reference Guides
+- [Getting Started](docs/GETTING_STARTED.md) — Quick setup guide
+- [Creating Creatures](docs/CREATING_CREATURES.md) — Creature creation guide
 - [Architecture](docs/ARCHITECTURE.md) — System design, data flow, memory budget
 - [API Reference](docs/API.md) — Complete method & enum documentation
-- [Creating Creatures](docs/CREATING_CREATURES.md) — Custom creature guide
 
 ## 🤝 Contributing
 
