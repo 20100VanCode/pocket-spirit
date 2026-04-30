@@ -368,7 +368,7 @@ void PocketSpirit::createStatsOverlay() {
     lv_obj_align(_energyBar, LV_ALIGN_TOP_LEFT, 8, 8);
     lv_bar_set_range(_energyBar, 0, 100);
     lv_bar_set_value(_energyBar, (int32_t)_stats.getEnergy(), LV_ANIM_OFF);
-    lv_obj_set_style_bg_color(lv_bar_get_indicator(_energyBar), lv_color_make(0x4C, 0xAF, 0x50), 0);
+    lv_obj_set_style_bg_color(_energyBar, lv_color_make(0x4C, 0xAF, 0x50), LV_PART_INDICATOR);
 
     // Happiness bar
     _happinessBar = lv_bar_create(_statsBar);
@@ -376,7 +376,7 @@ void PocketSpirit::createStatsOverlay() {
     lv_obj_align(_happinessBar, LV_ALIGN_TOP_MID, 0, 8);
     lv_bar_set_range(_happinessBar, 0, 100);
     lv_bar_set_value(_happinessBar, (int32_t)_stats.getHappiness(), LV_ANIM_OFF);
-    lv_obj_set_style_bg_color(lv_bar_get_indicator(_happinessBar), lv_color_make(0xFF, 0xEB, 0x3B), 0);
+    lv_obj_set_style_bg_color(_happinessBar, lv_color_make(0xFF, 0xEB, 0x3B), LV_PART_INDICATOR);
 
     // Affection bar
     _affectionBar = lv_bar_create(_statsBar);
@@ -384,14 +384,14 @@ void PocketSpirit::createStatsOverlay() {
     lv_obj_align(_affectionBar, LV_ALIGN_TOP_RIGHT, -8, 8);
     lv_bar_set_range(_affectionBar, 0, 100);
     lv_bar_set_value(_affectionBar, (int32_t)_stats.getAffection(), LV_ANIM_OFF);
-    lv_obj_set_style_bg_color(lv_bar_get_indicator(_affectionBar), lv_color_make(0xE9, 0x1E, 0x63), 0);
+    lv_obj_set_style_bg_color(_affectionBar, lv_color_make(0xE9, 0x1E, 0x63), LV_PART_INDICATOR);
 
     // Stage label
     _stageLabel = lv_label_create(_statsBar);
     lv_label_set_text(_stageLabel, evolutionStageToStr(_evolution.getStage()));
     lv_obj_align(_stageLabel, LV_ALIGN_BOTTOM_MID, 0, -2);
     lv_obj_set_style_text_color(_stageLabel, lv_color_white(), 0);
-    lv_obj_set_style_text_font(_stageLabel, &lv_font_montserrat_10, 0);
+    lv_obj_set_style_text_font(_stageLabel, &lv_font_montserrat_14, 0);
 }
 
 void PocketSpirit::updateStatsOverlay() {

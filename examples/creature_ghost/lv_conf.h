@@ -26,9 +26,9 @@
 
 /* Font usage */
 #define LV_FONT_MONTSERRAT_8    0
-#define LV_FONT_MONTSERRAT_10   1
+#define LV_FONT_MONTSERRAT_10   0
 #define LV_FONT_MONTSERRAT_12   0
-#define LV_FONT_MONTSERRAT_14   0
+#define LV_FONT_MONTSERRAT_14   1
 #define LV_FONT_MONTSERRAT_16   0
 #define LV_FONT_MONTSERRAT_18   0
 #define LV_FONT_MONTSERRAT_20   0
@@ -47,7 +47,7 @@
 #define LV_FONT_MONTSERRAT_46   0
 #define LV_FONT_MONTSERRAT_48   0
 
-#define LV_FONT_DEFAULT        &lv_font_montserrat_10
+#define LV_FONT_DEFAULT        &lv_font_montserrat_14
 #define LV_FONT_FMT_TXT_LARGE  0
 
 /* Widget usage - enable only what we need */
