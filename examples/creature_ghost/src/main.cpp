@@ -3,7 +3,7 @@
 
 using namespace PocketSpirit;
 
-PocketSpirit app;
+PocketSpirit::PocketSpirit app;
 
 void setup() {
     Serial.begin(115200);
