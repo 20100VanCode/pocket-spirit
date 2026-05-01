@@ -1,6 +1,7 @@
 #include "StateStorage.h"
 #include <nvs.h>
 #include <nvs_flash.h>
+#include <esp_err.h>
 #include <cstring>
 
 namespace PocketSpirit {
