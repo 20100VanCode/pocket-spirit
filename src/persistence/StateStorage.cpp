@@ -1,7 +1,6 @@
 #include "StateStorage.h"
 #include <nvs.h>
 #include <nvs_flash.h>
-#include <esp_err.h>
 #include <cstring>
 
 namespace PocketSpirit {
@@ -18,7 +17,14 @@ StateStorage::StateStorage() {
 
 bool StateStorage::init(const char* nvsNamespace) {
     esp_err_t err = nvs_flash_init();
-    if (err != ESP_OK && err != ESP_ERR_NVS_ALREADY_INITIALIZED) {
+    // ESP_OK = success, ESP_ERR_NVS_NO_FREE_PAGES = needs erase, ESP_ERR_NVS_NEW_VERSION_FOUND = needs erase
+    // Any other error is a failure
+    if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        // Try to erase and reinit
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        err = nvs_flash_init();
+    }
+    if (err != ESP_OK) {
         return false;
     }
 
