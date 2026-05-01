@@ -3,8 +3,16 @@
 
 namespace PocketSpirit {
 
-// Use TFT_eSPI's built-in touch support
+// Use TFT_eSPI's built-in touch support (if available)
 extern TFT_eSPI tft;
+
+// Check if touch is enabled in TFT_eSPI config
+// TOUCH_CS is defined when touch support is enabled
+#ifdef TOUCH_CS
+    #define PSPRIT_TOUCH_ENABLED 1
+#else
+    #define PSPRIT_TOUCH_ENABLED 0
+#endif
 
 TouchHandler::TouchHandler() {}
 
@@ -12,6 +20,7 @@ bool TouchHandler::init(uint16_t screenWidth, uint16_t screenHeight) {
     _screenW = screenWidth;
     _screenH = screenHeight;
 
+#if PSPRIT_TOUCH_ENABLED
     // Register touch input with LVGL
     lv_indev_drv_init(&_indevDrv);
     _indevDrv.type    = LV_INDEV_TYPE_POINTER;
@@ -20,9 +29,15 @@ bool TouchHandler::init(uint16_t screenWidth, uint16_t screenHeight) {
     _indev = lv_indev_drv_register(&_indevDrv);
 
     return _indev != nullptr;
+#else
+    // Touch not available, return success but don't register input device
+    _indev = nullptr;
+    return true;
+#endif
 }
 
 void TouchHandler::update() {
+#if PSPRIT_TOUCH_ENABLED
     TouchPoint tp = getTouch();
 
     if (tp.pressed && !_wasPressed) {
@@ -30,10 +45,12 @@ void TouchHandler::update() {
         if (_callback) _callback(zone, tp);
     }
     _wasPressed = tp.pressed;
+#endif
 }
 
 TouchPoint TouchHandler::getTouch() const {
     TouchPoint tp;
+#if PSPRIT_TOUCH_ENABLED
     uint16_t x = 0, y = 0;
 
     if (tft.getTouch(&x, &y, 600)) {
@@ -41,7 +58,7 @@ TouchPoint TouchHandler::getTouch() const {
         tp.y = (int16_t)y;
         tp.pressed = true;
     }
-
+#endif
     return tp;
 }
 
@@ -69,6 +86,7 @@ void TouchHandler::onTouch(std::function<void(TouchZone, const TouchPoint&)> cal
     _callback = callback;
 }
 
+#if PSPRIT_TOUCH_ENABLED
 void TouchHandler::readCallback(lv_indev_drv_t* drv, lv_indev_data_t* data) {
     TouchHandler* self = static_cast<TouchHandler*>(drv->user_data);
     if (!self) return;
@@ -79,5 +97,6 @@ void TouchHandler::readCallback(lv_indev_drv_t* drv, lv_indev_data_t* data) {
     data->state = tp.pressed ? LV_INDEV_STATE_PRESSED : LV_INDEV_STATE_RELEASED;
     data->continue_reading = false;
 }
+#endif
 
 } // namespace PocketSpirit

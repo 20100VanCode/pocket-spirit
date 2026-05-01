@@ -42,10 +42,15 @@ private:
 
     std::function<void(TouchZone, const TouchPoint&)> _callback;
 
+    // LVGL input device (only when touch is enabled)
+    #ifdef TOUCH_CS
     lv_indev_drv_t    _indevDrv;
     lv_indev_t*       _indev  = nullptr;
 
     static void readCallback(lv_indev_drv_t* drv, lv_indev_data_t* data);
+    #else
+    lv_indev_t*       _indev  = nullptr;
+    #endif
 };
 
 } // namespace PocketSpirit
