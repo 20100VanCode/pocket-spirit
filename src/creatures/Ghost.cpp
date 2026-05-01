@@ -3,16 +3,29 @@
 namespace PocketSpirit {
 
 EvolutionThresholds Ghost::getEvolutionThresholds(EvolutionStage stage) const {
+    EvolutionThresholds th;
     switch (stage) {
         case EvolutionStage::EGG:
-            return { .minAgeSeconds = 45, .minInteractions = 3,
-                     .minEnergy = 20.0f, .minHappiness = 20.0f, .minAffection = 15.0f };
+            th.minAgeSeconds = 45;
+            th.minInteractions = 3;
+            th.minEnergy = 20.0f;
+            th.minHappiness = 20.0f;
+            th.minAffection = 15.0f;
+            return th;
         case EvolutionStage::BABY:
-            return { .minAgeSeconds = 240, .minInteractions = 15,
-                     .minEnergy = 40.0f, .minHappiness = 40.0f, .minAffection = 50.0f };
+            th.minAgeSeconds = 240;
+            th.minInteractions = 15;
+            th.minEnergy = 40.0f;
+            th.minHappiness = 40.0f;
+            th.minAffection = 50.0f;
+            return th;
         default:
-            return { .minAgeSeconds = UINT32_MAX, .minInteractions = UINT32_MAX,
-                     .minEnergy = 999.0f, .minHappiness = 999.0f, .minAffection = 999.0f };
+            th.minAgeSeconds = UINT32_MAX;
+            th.minInteractions = UINT32_MAX;
+            th.minEnergy = 999.0f;
+            th.minHappiness = 999.0f;
+            th.minAffection = 999.0f;
+            return th;
     }
 }
 

@@ -3,16 +3,29 @@
 namespace PocketSpirit {
 
 EvolutionThresholds Lumy::getEvolutionThresholds(EvolutionStage stage) const {
+    EvolutionThresholds th;
     switch (stage) {
         case EvolutionStage::EGG:
-            return { .minAgeSeconds = 60, .minInteractions = 5,
-                     .minEnergy = 30.0f, .minHappiness = 30.0f, .minAffection = 10.0f };
+            th.minAgeSeconds = 60;
+            th.minInteractions = 5;
+            th.minEnergy = 30.0f;
+            th.minHappiness = 30.0f;
+            th.minAffection = 10.0f;
+            return th;
         case EvolutionStage::BABY:
-            return { .minAgeSeconds = 300, .minInteractions = 25,
-                     .minEnergy = 50.0f, .minHappiness = 50.0f, .minAffection = 40.0f };
+            th.minAgeSeconds = 300;
+            th.minInteractions = 25;
+            th.minEnergy = 50.0f;
+            th.minHappiness = 50.0f;
+            th.minAffection = 40.0f;
+            return th;
         default:
-            return { .minAgeSeconds = UINT32_MAX, .minInteractions = UINT32_MAX,
-                     .minEnergy = 999.0f, .minHappiness = 999.0f, .minAffection = 999.0f };
+            th.minAgeSeconds = UINT32_MAX;
+            th.minInteractions = UINT32_MAX;
+            th.minEnergy = 999.0f;
+            th.minHappiness = 999.0f;
+            th.minAffection = 999.0f;
+            return th;
     }
 }
 

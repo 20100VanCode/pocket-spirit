@@ -123,19 +123,32 @@ Lower numbers = easier to evolve:
 
 ```cpp
 EvolutionThresholds getEvolutionThresholds(EvolutionStage stage) const override {
+    EvolutionThresholds th;
     switch (stage) {
         case EvolutionStage::EGG:
             // Hatch: 30 seconds old, 5 interactions
-            return { .minAgeSeconds = 30, .minInteractions = 5,
-                     .minEnergy = 20.0f, .minHappiness = 20.0f, .minAffection = 5.0f };
+            th.minAgeSeconds = 30;
+            th.minInteractions = 5;
+            th.minEnergy = 20.0f;
+            th.minHappiness = 20.0f;
+            th.minAffection = 5.0f;
+            return th;
         case EvolutionStage::BABY:
             // Adult: 10 minutes, 50 interactions, high stats
-            return { .minAgeSeconds = 600, .minInteractions = 50,
-                     .minEnergy = 70.0f, .minHappiness = 70.0f, .minAffection = 60.0f };
+            th.minAgeSeconds = 600;
+            th.minInteractions = 50;
+            th.minEnergy = 70.0f;
+            th.minHappiness = 70.0f;
+            th.minAffection = 60.0f;
+            return th;
         default:
             // No evolution after adult
-            return { .minAgeSeconds = UINT32_MAX, .minInteractions = UINT32_MAX,
-                     .minEnergy = 999.0f, .minHappiness = 999.0f, .minAffection = 999.0f };
+            th.minAgeSeconds = UINT32_MAX;
+            th.minInteractions = UINT32_MAX;
+            th.minEnergy = 999.0f;
+            th.minHappiness = 999.0f;
+            th.minAffection = 999.0f;
+            return th;
     }
 }
 ```
