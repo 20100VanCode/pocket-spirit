@@ -14,6 +14,7 @@ bool DisplayManager::init(uint16_t width, uint16_t height) {
     _width  = width;
     _height = height;
 
+    // Init TFT_eSPI
     tft.begin();
     tft.setRotation(0);
     tft.fillScreen(TFT_BLACK);
@@ -23,6 +24,9 @@ bool DisplayManager::init(uint16_t width, uint16_t height) {
     pinMode(TFT_BL, OUTPUT);
     digitalWrite(TFT_BL, HIGH);  // Full brightness
     #endif
+
+    // Init LVGL
+    lv_init();
 
     _buf1 = new lv_color_t[_width * 20];
     if (!_buf1) return false;
