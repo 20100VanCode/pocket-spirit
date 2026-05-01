@@ -65,7 +65,7 @@ void handleButtons() {
             Serial.println("Button 2: Toggle stats");
             static bool statsVisible = true;
             statsVisible = !statsVisible;
-            app.showStatsOverlay(statsVisible);
+            app.showStats(statsVisible);
         } else if (duration > DEBOUNCE_MS) {
             // Short press = Feed
             Serial.println("Button 2: FEED");
@@ -102,7 +102,7 @@ void setup() {
     });
 
     // Show stats overlay by default
-    app.showStatsOverlay(true);
+    app.showStats(true);
 
     Serial.println("Lumy is alive!");
 }
