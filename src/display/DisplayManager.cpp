@@ -9,30 +9,48 @@ TFT_eSPI tft = TFT_eSPI();
 DisplayManager::DisplayManager() {}
 
 bool DisplayManager::init(uint16_t width, uint16_t height) {
+    Serial.println("DM: Enter init");
     if (_initialized) return true;
 
     _width  = width;
     _height = height;
+    Serial.println("DM: Set dimensions");
 
     // Init TFT_eSPI
+    Serial.println("DM: tft.begin()...");
     tft.begin();
+    Serial.println("DM: tft.setRotation()...");
     tft.setRotation(0);
+    Serial.println("DM: tft.fillScreen()...");
     tft.fillScreen(TFT_BLACK);
+    Serial.println("DM: TFT init done");
 
     // Simple backlight control - just turn it on
     #ifdef TFT_BL
+    Serial.println("DM: Setup backlight...");
     pinMode(TFT_BL, OUTPUT);
     digitalWrite(TFT_BL, HIGH);  // Full brightness
+    Serial.println("DM: Backlight on");
     #endif
 
     // Init LVGL
+    Serial.println("DM: lv_init()...");
     lv_init();
+    Serial.println("DM: lv_init() done");
 
+    Serial.println("DM: Allocating buffer...");
     _buf1 = new lv_color_t[_width * 20];
-    if (!_buf1) return false;
+    if (!_buf1) {
+        Serial.println("DM: Buffer alloc failed!");
+        return false;
+    }
+    Serial.println("DM: Buffer allocated");
 
+    Serial.println("DM: lv_disp_draw_buf_init()...");
     lv_disp_draw_buf_init(&_drawBuf, _buf1, nullptr, _width * 20);
+    Serial.println("DM: lv_disp_draw_buf_init() done");
 
+    Serial.println("DM: lv_disp_drv_init()...");
     lv_disp_drv_init(&_dispDrv);
     _dispDrv.hor_res  = _width;
     _dispDrv.ver_res  = _height;
@@ -41,15 +59,20 @@ bool DisplayManager::init(uint16_t width, uint16_t height) {
     _dispDrv.user_data = this;
     _dispDrv.sw_rotate = 0;
     _dispDrv.rotated   = LV_DISP_ROT_NONE;
+    Serial.println("DM: lv_disp_drv_init() done");
 
+    Serial.println("DM: lv_disp_drv_register()...");
     _display = lv_disp_drv_register(&_dispDrv);
     if (!_display) {
+        Serial.println("DM: Display registration failed!");
         delete[] _buf1;
         _buf1 = nullptr;
         return false;
     }
+    Serial.println("DM: Display registered");
 
     _initialized = true;
+    Serial.println("DM: Init complete");
     return true;
 }
 
