@@ -4,7 +4,7 @@
 
 namespace PocketSpirit {
 
-static TFT_eSPI tft = TFT_eSPI();
+TFT_eSPI tft = TFT_eSPI();
 
 DisplayManager::DisplayManager() {}
 

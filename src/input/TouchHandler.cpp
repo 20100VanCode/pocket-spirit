@@ -3,13 +3,12 @@
 
 namespace PocketSpirit {
 
-// Use TFT_eSPI's built-in touch support (if available)
-extern TFT_eSPI tft;
-
 // Check if touch is enabled in TFT_eSPI config
 // TOUCH_CS is defined when touch support is enabled
 #ifdef TOUCH_CS
     #define PSPRIT_TOUCH_ENABLED 1
+    // Use TFT_eSPI's built-in touch support (only when available)
+    extern TFT_eSPI tft;
 #else
     #define PSPRIT_TOUCH_ENABLED 0
 #endif
