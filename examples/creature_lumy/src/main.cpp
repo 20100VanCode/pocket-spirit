@@ -76,9 +76,9 @@ void handleButtons() {
 
 void setup() {
     Serial.begin(115200);
-    delay(500);
+    delay(1000);  // Longer delay for serial to connect
 
-    Serial.println("=== Pocket Spirit: Lumy (Lilygo T-S3) ===");
+    Serial.println("\n\n=== Pocket Spirit: Lumy (Lilygo T-S3) ===");
     Serial.println("Controls:");
     Serial.println("  Button 1 short: PET");
     Serial.println("  Button 1 long:  PLAY");
@@ -88,10 +88,19 @@ void setup() {
 
     initButtons();
 
+    Serial.println("Starting PocketSpirit...");
     if (!app.begin("Lumy")) {
-        Serial.println("Failed to initialize PocketSpirit!");
+        Serial.println("ERROR: Failed to initialize PocketSpirit!");
         while (1) delay(1000);
     }
+    Serial.println("PocketSpirit initialized OK");
+    
+    // Test: Force backlight on via direct GPIO
+    Serial.println("Testing backlight on GPIO 38...");
+    pinMode(38, OUTPUT);
+    digitalWrite(38, HIGH);  // Turn backlight fully on
+    delay(100);
+    Serial.println("Backlight should be ON now");
 
     app.onEvolve([](EvolutionStage stage) {
         Serial.printf("Lumy evolved to: %s\n", evolutionStageToStr(stage));
