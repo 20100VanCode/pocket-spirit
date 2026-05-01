@@ -11,27 +11,49 @@ PocketSpirit::~PocketSpirit() {}
 bool PocketSpirit::begin(const char* creatureName) {
     if (_initialized) return true;
 
+    Serial.println("DEBUG: Step 1 - Init persistence");
     // 1. Init persistence
-    if (!_storage.init()) return false;
+    if (!_storage.init()) {
+        Serial.println("ERROR: Storage init failed");
+        return false;
+    }
 
+    Serial.println("DEBUG: Step 2 - Register creatures");
     // 2. Register built-in creatures
     CreatureRegistry::instance().registerCreature(&_lumy);
     CreatureRegistry::instance().registerCreature(&_dragon);
     CreatureRegistry::instance().registerCreature(&_ghost);
 
+    Serial.println("DEBUG: Step 3 - Init display");
     // 3. Init display
-    if (!_display.init()) return false;
+    if (!_display.init()) {
+        Serial.println("ERROR: Display init failed");
+        return false;
+    }
 
+    Serial.println("DEBUG: Step 4 - Setup screen");
     // 4. Set up screen background
     lv_obj_t* screen = _display.getScreen();
+    if (!screen) {
+        Serial.println("ERROR: getScreen returned null");
+        return false;
+    }
     lv_obj_set_style_bg_color(screen, lv_color_black(), 0);
     lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, 0);
 
+    Serial.println("DEBUG: Step 5 - Init input");
     // 5. Init input
-    if (!_input.init(_display.getWidth(), _display.getHeight())) return false;
+    if (!_input.init(_display.getWidth(), _display.getHeight())) {
+        Serial.println("ERROR: Input init failed");
+        return false;
+    }
 
+    Serial.println("DEBUG: Step 6 - Init power");
     // 6. Init power
-    if (!_power.init()) return false;
+    if (!_power.init()) {
+        Serial.println("ERROR: Power init failed");
+        return false;
+    }
 
     // 7. Load saved state or create new
     if (_storage.hasState() && _storage.loadState(_state)) {
