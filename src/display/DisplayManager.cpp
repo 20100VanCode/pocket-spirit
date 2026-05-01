@@ -18,11 +18,10 @@ bool DisplayManager::init(uint16_t width, uint16_t height) {
     tft.setRotation(0);
     tft.fillScreen(TFT_BLACK);
 
-    // Setup backlight PWM (GPIO defined by TFT_BL build flag)
+    // Simple backlight control - just turn it on
     #ifdef TFT_BL
-    ledcSetup(0, 5000, 8);  // Channel 0, 5kHz, 8-bit resolution
-    ledcAttachPin(TFT_BL, 0);
-    ledcWrite(0, 255);  // Full brightness
+    pinMode(TFT_BL, OUTPUT);
+    digitalWrite(TFT_BL, HIGH);  // Full brightness
     #endif
 
     _buf1 = new lv_color_t[_width * 20];
@@ -64,8 +63,8 @@ void DisplayManager::setBrightness(uint8_t percent) {
     if (percent > 100) percent = 100;
     _brightness = percent;
     #ifdef TFT_BL
-    uint32_t duty = (percent * 255) / 100;
-    ledcWrite(0, duty);
+    // Simple on/off - no PWM dimming for now
+    digitalWrite(TFT_BL, percent > 0 ? HIGH : LOW);
     #endif
 }
 
