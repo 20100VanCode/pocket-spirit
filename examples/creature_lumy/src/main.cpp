@@ -94,13 +94,6 @@ void setup() {
         while (1) delay(1000);
     }
     Serial.println("PocketSpirit initialized OK");
-    
-    // Test: Force backlight on via direct GPIO
-    Serial.println("Testing backlight on GPIO 38...");
-    pinMode(38, OUTPUT);
-    digitalWrite(38, HIGH);  // Turn backlight fully on
-    delay(100);
-    Serial.println("Backlight should be ON now");
 
     app.onEvolve([](EvolutionStage stage) {
         Serial.printf("Lumy evolved to: %s\n", evolutionStageToStr(stage));
